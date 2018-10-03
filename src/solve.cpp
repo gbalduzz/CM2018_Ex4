@@ -10,7 +10,7 @@ int main() {
   auto parameters = json11::Json::parseFile(SOURCE_DIR "/input.json");
 
   const double g_over_l = 1.;
-  const int n_periods = 3;
+
 
   const double x0 = parameters["x0"].number_value() * M_PI;
   const double v0 = parameters["v0"].number_value();
@@ -22,6 +22,7 @@ int main() {
   out << "# time \t theta \t theta_dot\n";
   solver.printConfiguration(out);
 
+  const int n_periods = parameters["periods"].int_value();
   const int steps_per_sample = parameters["steps per sample"].int_value();
 
   while (solver.periods() < n_periods) {

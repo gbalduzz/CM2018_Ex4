@@ -2,5 +2,6 @@
     "x0" : 0.75,
     "v0" : 0,
     "dt" : 1e-5,
-    "steps per sample" : 100
+    "periods" : 20,
+    "steps per sample" : 200
 }

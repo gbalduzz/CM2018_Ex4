@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 
+#include "analytic_period.hpp"
 #include "json11.hpp"
 #include "second_order_solver.hpp"
 
@@ -31,6 +32,7 @@ int main() {
   out.close();
 
   std::cout << "Average period: " << solver.get_average_period()
+            << "\nAnalytic period: " << analyticPeriod(x0, g_over_l)
             << "\nAmplitude shift: " << solver.get_amplitude_shift()
             << std::endl;
 }

@@ -17,7 +17,7 @@ plt.figure(fig_id)
 fig_id += 1
 plt.plot(data[:,1], data[:,2])
 plt.xlabel(r"$\theta$")
-plt.ylabel(r"$\dot{theta}$")
+plt.ylabel(r"$\dot{\theta}$")
 
 plt.show()
 

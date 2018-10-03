@@ -9,10 +9,11 @@ SecondOrderSolver::SecondOrderSolver(double x0, double v0, double g_over_l,
 void SecondOrderSolver::doStep() {
   old_v_ = v_;
 
-  // Do a simple Euler step.
-  const double a = -g_over_l_ * std::sin(x_);
-  v_ += a * dt_;
+  // use leapfrog algorithm.
+  v_ += 0.5 * dt_ * (-g_over_l_ * std::sin(x_));
   x_ += v_ * dt_;
+  v_ += 0.5 * dt_ * (-g_over_l_ * std::sin(x_));
+
   t_ += dt_;
 
   if (v_ * old_v_ < 0) {

@@ -31,8 +31,9 @@ int main() {
   }
   out.close();
 
-  std::cout << "Average period: " << solver.get_average_period()
+  std::cout << "Average period: " << solver.averagePeriod()
             << "\nAnalytic period: " << analyticPeriod(x0, g_over_l)
-            << "\nAmplitude shift: " << solver.get_amplitude_shift()
+            << "\nAmplitude shift: " << solver.maxAmplitudeShift()
+            << "\nPeriod shift: " << solver.maxPeriodShift() << "\n"
             << std::endl;
 }

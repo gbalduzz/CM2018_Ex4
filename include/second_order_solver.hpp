@@ -13,9 +13,10 @@ public:
 
   int periods() const { return n_semi_periods_ / 2; }
 
-  double get_average_period() const { return period_; }
+  double averagePeriod() const;
 
-  double get_amplitude_shift() const{ return std::abs(peak_x_[0]) - std::abs(peak_x_.back());}
+  double maxAmplitudeShift() const;
+  double maxPeriodShift() const;
 
 private:
   double x_;
@@ -23,11 +24,11 @@ private:
   const double g_over_l_;
   const double dt_;
 
-  double t_;
+  double t_ = 0;
 
   // metadata.
   double old_v_;
   double n_semi_periods_ = 0.;
-  double period_ = 0;
   std::vector<double> peak_x_;
+  std::vector<double> peak_t_;
 };

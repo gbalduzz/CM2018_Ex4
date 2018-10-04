@@ -11,7 +11,6 @@ int main() {
 
   const double g_over_l = 1.;
 
-
   const double x0 = parameters["x0"].number_value() * M_PI;
   const double v0 = parameters["v0"].number_value();
   const double dt = parameters["dt"].number_value();
@@ -32,8 +31,12 @@ int main() {
   }
   out.close();
 
-  std::cout << "Average period: " << solver.averagePeriod()
-            << "\nAnalytic period: " << analyticPeriod(x0, g_over_l)
+  const double measured_t = solver.averagePeriod();
+  const double analytic_t = analyticPeriod(x0, g_over_l);
+
+  std::cout << "Average period: " << measured_t
+            << "\nAnalytic period: " << analytic_t << "\nRelative error: "
+            << std::abs(measured_t - analytic_t) / analytic_t
             << "\nAmplitude shift: " << solver.maxAmplitudeShift()
             << "\nPeriod shift: " << solver.maxPeriodShift() << "\n"
             << std::endl;

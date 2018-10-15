@@ -31,6 +31,7 @@ void SecondOrderSolver::doStep() {
 }
 
 void SecondOrderSolver::printConfiguration(std::ostream &stream) const {
+  // TODO: store acceleration value if this is called frequently.
   // Synchronize v:
   const double v_step = v_ - 0.5 * dt_ * acceleration_(x_);
   stream << t_ << "\t" << x_ << "\t" << v_step << "\n";

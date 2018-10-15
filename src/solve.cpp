@@ -15,7 +15,8 @@ int main() {
   const double v0 = parameters["v0"].number_value();
   const double dt = parameters["dt"].number_value();
 
-  SecondOrderSolver solver(x0, v0, g_over_l, dt);
+  SecondOrderSolver solver(
+      x0, v0, dt, [=](const double x) { return -g_over_l * std::sin(x); });
 
   std::ofstream out("second_order_ODE_solution.txt");
   out << "# time \t theta \t theta_dot\n";

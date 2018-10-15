@@ -2,21 +2,24 @@
 
 #include <cmath>
 
-SecondOrderSolver::SecondOrderSolver(double x0, double v0, double g_over_l,
-                                     double dt)
-    : x_(x0), v_(v0), g_over_l_(g_over_l), dt_(dt) {
-  if (v0 == 0)
+SecondOrderSolver::SecondOrderSolver(
+    double x0, double v0, double dt,
+    const std::function<double(double)>& acceleration)
+    : acceleration_(acceleration), x_(x0), v_(v0), dt_(dt) {
+  if (v0 == 0) {
     peak_x_.push_back(x_);
-  peak_t_.push_back(t_);
+    peak_t_.push_back(t_);
+  }
+  // Start the velocity at 0.5 * dt.
+  v_ += 0.5 * dt * acceleration_(x_);
 }
 
 void SecondOrderSolver::doStep() {
   old_v_ = v_;
 
   // use leapfrog algorithm.
-  v_ += 0.5 * dt_ * (-g_over_l_ * std::sin(x_));
   x_ += v_ * dt_;
-  v_ += 0.5 * dt_ * (-g_over_l_ * std::sin(x_));
+  v_ += dt_ * acceleration_(x_);
 
   t_ += dt_;
 
@@ -28,7 +31,9 @@ void SecondOrderSolver::doStep() {
 }
 
 void SecondOrderSolver::printConfiguration(std::ostream &stream) const {
-  stream << t_ << "\t" << x_ << "\t" << v_ << "\n";
+  // Synchronize v:
+  const double v_step = v_ - 0.5 * dt_ * acceleration_(x_);
+  stream << t_ << "\t" << x_ << "\t" << v_step << "\n";
 }
 
 double SecondOrderSolver::averagePeriod() const {
